@@ -5,8 +5,8 @@ Feature: Navigation bar
 
     Scenario: I can try to login using a correct and wrong password.
         Given I navigate to www.saucedemo.com
-        Then Login using a correct password
-        When Login using incorrect password
+        When Login using a correct password
+        Then Login using incorrect password
 
     Scenario: I can try to login using a blocked account.
         Given I navigate to www.saucedemo.com
