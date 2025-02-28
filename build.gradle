@@ -8,12 +8,27 @@
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     id 'application'
+    id 'checkstyle'
 }
 
 repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()
 }
+
+// Configura el linter  
+checkstyle {  
+    toolVersion = '10.3'  // Especifica la versión de Checkstyle  
+    configFile = file('config/checkstyle/checkstyle.xml')  // Ruta al archivo de configuración  
+} 
+
+// Configura la tarea Checkstyle  
+tasks.withType(Checkstyle) {  
+    reports {  
+        xml.enabled = false  // Deshabilita el informe XML  
+        html.enabled = true   // Habilita el informe HTML  
+    }  
+} 
 
 dependencies {
     // Use JUnit Jupiter for testing.
@@ -36,6 +51,15 @@ dependencies {
     // https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager
     implementation 'io.github.bonigarcia:webdrivermanager:5.9.3'
 
+    // Dependencia para RestAssured  
+    testImplementation 'io.rest-assured:rest-assured:5.4.0' // Reemplaza con la versión más reciente si es necesario  
+    
+    // Dependencia de Jackson para el manejo de JSON  
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.1' // Reemplaza con la versión más reciente si es necesario  
+    
+    // Dependencia de TestNG  
+    testImplementation 'org.testng:testng:7.7.0' // Reemplaza con la versión más reciente si es necesario  
+
 
 }
 
@@ -53,3 +77,7 @@ tasks.named('test') {
 
 tasks.named('test') { 
 systemProperty "cucumber.options", System.getProperty("cucumber.options")}
+
+test {  
+    useTestNG()  
+}  
