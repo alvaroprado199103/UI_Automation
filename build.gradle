@@ -8,7 +8,6 @@
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     id 'application'
-    id 'checkstyle'
 }
 
 repositories {
@@ -16,19 +15,22 @@ repositories {
     mavenCentral()
 }
 
-// Configura el linter  
-checkstyle {  
-    toolVersion = '10.3'  // Especifica la versión de Checkstyle  
-    configFile = file('config/checkstyle/checkstyle.xml')  // Ruta al archivo de configuración  
-} 
+plugins {  
+    id 'java'  
+    id 'checkstyle'  
+}  
 
-// Configura la tarea Checkstyle  
+checkstyle {  
+    toolVersion = '10.3' // Asegúrate de usar la versión correcta  
+    configFile = file('config/checkstyle/checkstyle.xml')  
+}  
+
 tasks.withType(Checkstyle) {  
     reports {  
-        xml.enabled = false  // Deshabilita el informe XML  
-        html.enabled = true   // Habilita el informe HTML  
+        xml.required.set(true)  // Requiere el informe XML  
+        html.required.set(true)  // Requiere el informe HTML  
     }  
-} 
+}  
 
 dependencies {
     // Use JUnit Jupiter for testing.
