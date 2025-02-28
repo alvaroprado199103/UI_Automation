@@ -36,7 +36,7 @@ jobs:
       run: ./gradlew build  
 
     - name: Run Cucumber Tests  
-      run: ./gradlew test --tests "csrc/test/java/runner/*"
+      run: ./gradlew test --tests "src/test/java/runner/*"
       
     - name: Run Checkstyle  
       run: ./gradlew checkstyleMain checkstyleTest

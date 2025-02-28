@@ -16,8 +16,8 @@ repositories {
 }  
 
 checkstyle {  
-    toolVersion = '10.3' // Make sure to use the correct version  
-    configFile = file('config/checkstyle/checkstyle.xml')  
+    toolVersion = '10.3' // Make sure toonfigFile = file("$rootDir/config/checkstyle/checkstyle.xml") 
+    configFile = file("$rootDir/config/checkstyle/checkstyle.xml")
 }  
 
 tasks.withType(Checkstyle) {  
@@ -43,7 +43,7 @@ dependencies {
 // Apply a specific Java toolchain to ease working on different environments.  
 java {  
     toolchain {  
-        languageVersion = JavaLanguageVersion.of(17)  
+        languageVersion = JavaLanguageVersion.of(21)  
     }  
 }  
 
