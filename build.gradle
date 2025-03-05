@@ -20,12 +20,16 @@ checkstyle {
     configFile = file("config/checkstyle/checkstyle.xml")
 }  
 
+tasks.withType(Checkstyle).configureEach {
+     classpath = files()
+}  
+
 tasks.withType(Checkstyle) {  
     reports {  
         xml.required.set(true)  // Require XML report  
         html.required.set(true)  // Require HTML report  
     }  
-}  
+}
 
 dependencies {  
     testImplementation libs.junit.jupiter  
@@ -54,3 +58,4 @@ tasks.named('test') {
 test {  
     useTestNG()  
 }  
+
