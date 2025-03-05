@@ -40,14 +40,10 @@ jobs:
       
     - name: Run Checkstyle  
       run: ./gradlew checkstyleMain checkstyleTest
-
     - name: Generate and submit dependency graph  
       uses: gradle/actions/dependency-submission@af1da67850ed9a4cedd57bfd976089dd991e2582 
-
   dependency-submission:  
 
     runs-on: ubuntu-latest  
     permissions:  
       contents: write  
-
-    
