@@ -16,8 +16,8 @@ repositories {
 }  
 
 checkstyle {  
-    toolVersion = '10.3' // Make sure toonfigFile = file("$rootDir/config/checkstyle/checkstyle.xml") 
-    configFile = file("$rootDir/config/checkstyle/checkstyle.xml")
+    toolVersion = '10.3' 
+    configFile = file("config/checkstyle/checkstyle.xml")
 }  
 
 tasks.withType(Checkstyle) {  
