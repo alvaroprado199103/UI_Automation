@@ -22,10 +22,10 @@ jobs:
     steps:  
     - uses: actions/checkout@v4  
 
-    - name: Set up JDK 21  
+    - name: Set up JDK 22  
       uses: actions/setup-java@v4  
       with:  
-        java-version: '21'  
+        java-version: '22'  
         distribution: 'temurin'  
 
     - name: Cache Gradle packages  
@@ -63,10 +63,10 @@ jobs:
 
     steps:  
     - uses: actions/checkout@v4  
-    - name: Set up JDK 21 for Dependency Submission  
+    - name: Set up JDK 22 for Dependency Submission  
       uses: actions/setup-java@v4  
       with:  
-        java-version: '21'  
+        java-version: '22'  
         distribution: 'temurin'  
     - name: Generate and submit dependency graph  
       uses: gradle/actions/dependency-submission@af1da67850ed9a4cedd57bfd976089dd991e2582  
