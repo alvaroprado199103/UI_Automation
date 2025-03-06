@@ -16,12 +16,12 @@ repositories {
 }  
 
 checkstyle {  
-    toolVersion = '10.12.4' 
-    configFile = file("config/checkstyle/checkstyle.xml")
+    toolVersion = '10.12.4'  
+    configFile = file("config/checkstyle/checkstyle.xml")  
 }  
 
-tasks.withType(Checkstyle).configureEach {
-     classpath = files()
+tasks.withType(Checkstyle).configureEach {  
+    classpath = files()  
 }  
 
 tasks.withType(Checkstyle) {  
@@ -29,19 +29,19 @@ tasks.withType(Checkstyle) {
         xml.required.set(true)  // Require XML report  
         html.required.set(true)  // Require HTML report  
     }  
-}
+}  
 
 dependencies {  
     testImplementation libs.junit.jupiter  
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'  
-    implementation 'org.seleniumhq.selenium:selenium-java:4.28.1'   
+    implementation 'org.seleniumhq.selenium:selenium-java:4.28.1'  
     implementation 'io.cucumber:cucumber-java:7.21.1'  
     testImplementation 'io.cucumber:cucumber-junit:7.21.1'  
     implementation 'io.github.bonigarcia:webdrivermanager:5.9.3'  
     testImplementation 'io.rest-assured:rest-assured:5.4.0'  
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.1'  
-    implementation 'io.github.bonigarcia:webdrivermanager:5.7.0' 
-
+    // Añadir la dependencia slf4j-simple  
+    implementation 'org.slf4j:slf4j-simple:2.0.7'  
 }  
 
 // Apply a specific Java toolchain to ease working on different environments.  

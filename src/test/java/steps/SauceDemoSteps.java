@@ -8,7 +8,8 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import io.cucumber.java.en.Then;
-import pages.*;
+import pages.LoginPage;
+import pages.MainPage;
 
 public class SauceDemoSteps {
 
