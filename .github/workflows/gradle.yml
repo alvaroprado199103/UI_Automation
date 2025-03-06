@@ -42,9 +42,6 @@ jobs:
     - name: Setup Gradle  
       uses: gradle/actions/setup-gradle@v3 
 
-    - name: Build with Gradle Wrapper  
-      run: ./gradlew build 
-      
     - name: Set up Chrome Driver  
       run: |  
         sudo apt-get update  
@@ -57,6 +54,9 @@ jobs:
         unzip /tmp/chromedriver_linux64.zip -d /usr/local/share/chromedriver  
         chmod +x /usr/local/share/chromedriver/chromedriver  
         sudo ln -s /usr/local/share/chromedriver/chromedriver /usr/bin/chromedriver 
+
+    - name: Build with Gradle Wrapper  
+      run: ./gradlew build 
 
     - name: Run Tests  
       run: ./gradlew test --tests "src/test/java/runner/*.java"  
