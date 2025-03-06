@@ -34,14 +34,12 @@ tasks.withType(Checkstyle) {
 dependencies {  
     testImplementation libs.junit.jupiter  
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'  
-    implementation 'org.seleniumhq.selenium:selenium-java:4.28.1'  
-    testImplementation 'org.testng:testng:7.11.0'  
+    implementation 'org.seleniumhq.selenium:selenium-java:4.28.1'   
     implementation 'io.cucumber:cucumber-java:7.21.1'  
     testImplementation 'io.cucumber:cucumber-junit:7.21.1'  
     implementation 'io.github.bonigarcia:webdrivermanager:5.9.3'  
     testImplementation 'io.rest-assured:rest-assured:5.4.0'  
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.1'  
-    testImplementation 'org.testng:testng:7.7.0'  
 
 }  
 
@@ -52,11 +50,14 @@ java {
     }  
 }  
 
-tasks.named('test') {  
-    systemProperty "cucumber.options", System.getProperty("cucumber.options")  
-}  
 
-test {  
-    useTestNG()  
+sourceSets {  
+    test {  
+        java {  
+            srcDirs = ['src/test/java']  
+        }  
+        resources {  
+            srcDirs = ['src/test/resources']  
+        }  
+    }  
 }  
-
