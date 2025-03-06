@@ -26,7 +26,7 @@ public class SauceDemoSteps {
 
     @After
     public void closeNav() {
-        driver.quit();
+        // driver.quit();
     }
 
     @Given("I navigate to www.saucedemo.com")
