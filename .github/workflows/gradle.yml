@@ -18,8 +18,22 @@ jobs:
     runs-on: ubuntu-latest  
     permissions:  
       contents: read  
+    
+    steps:
+    
+    - name: Set up Chrome Driver  
+      run: |  
+        sudo apt-get update  
+        sudo apt-get install -y google-chrome-stable  
+        mkdir -p /usr/local/share/chromedriver  
+        CHROME_VERSION=$(google-chrome --version | cut -d' ' -f3 | cut -d'.' -f1)  
+        wget "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_VERSION" -q -O /tmp/latest_chrome_driver_version  
+        CHROMEDRIVER_VERSION=$$(cat /tmp/latest_chrome_driver_version)  
+        wget "https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip" -q -O /tmp/chromedriver_linux64.zip  
+        unzip /tmp/chromedriver_linux64.zip -d /usr/local/share/chromedriver  
+        chmod +x /usr/local/share/chromedriver/chromedriver  
+        sudo ln -s /usr/local/share/chromedriver/chromedriver /usr/bin/chromedriver  
 
-    steps:  
     - uses: actions/checkout@v4  
 
     - name: Set up JDK 22  
