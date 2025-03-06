@@ -18,10 +18,23 @@ public class SauceDemoSteps {
 
     @Before
     public void initialize() {
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
-        loginPage = new LoginPage(driver);
-        mainPage = new MainPage(driver);
+        System.out.println("Inicializando el WebDriver...");
+        try {
+            System.out.println("Configurando WebDriverManager...");
+            WebDriverManager.chromedriver().setup();
+            System.out.println("WebDriverManager configurado.");
+            System.out.println("Creando instancia de ChromeDriver...");
+            driver = new ChromeDriver();
+            System.out.println("Instancia de ChromeDriver creada.");
+            loginPage = new LoginPage(driver);
+            mainPage = new MainPage(driver);
+            System.out.println("Páginas inicializadas.");
+        } catch (Exception e) {
+            System.err.println("Error al inicializar el WebDriver: " + e.getMessage());
+            e.printStackTrace();
+            throw e; // Re-lanza la excepción para que la prueba falle
+        }
+        System.out.println("WebDriver inicializado correctamente.");
     }
 
     @After

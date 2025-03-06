@@ -45,8 +45,7 @@ jobs:
     - name: Debug - Print Chrome and Chromedriver Versions  
       run: |  
         google-chrome --version  
-        chromedriver --version # Si está disponible en el PATH
-        java -e 'System.out.println(System.getProperty("webdriver.chrome.driver"));'    
+        chromedriver --version # Si está disponible en el PATH  
 
     # Asegurarnos de que Chrome está instalado (necesario para Selenium)  
     - name: Install Chrome  
