@@ -44,21 +44,13 @@ jobs:
 
     - name: Set up Chrome Driver  
       run: |  
+
         sudo apt-get update  
         sudo apt-get install -y google-chrome-stable  
-        CHROME_VERSION=$(google-chrome --version | cut -d' ' -f3)  
-        echo "Chrome Version: $CHROME_VERSION"  
-    
-        # Construir la URL del ChromeDriver directamente  
-        CHROMEDRIVER_VERSION=$(echo $CHROME_VERSION | sed 's/\.[0-9]*$//') # Obtener la version principal ej: 133.0.6943  
-        CHROMEDRIVER_URL="https://chromedriver.storage.googleapis.com/${CHROMEDRIVER_VERSION}/chromedriver_linux64.zip"  
-        echo "ChromeDriver URL: $CHROMEDRIVER_URL"  
-        
-        sudo mkdir -p /usr/local/share/chromedriver  
-        wget "$CHROMEDRIVER_URL" -q -O /tmp/chromedriver_linux64.zip  
-        unzip /tmp/chromedriver_linux64.zip -d /usr/local/share/chromedriver  
-        chmod +x /usr/local/share/chromedriver/chromedriver  
-        sudo ln -s /usr/local/share/chromedriver/chromedriver /usr/bin/chromedriver  
+
+        # Instalar el paquete chromedriver directamente desde los repositorios de Ubuntu  
+        sudo apt-get install -y chromedriver  
+
     - name: Build with Gradle Wrapper  
       run: ./gradlew build 
 
