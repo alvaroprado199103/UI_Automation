@@ -25,7 +25,7 @@ jobs:
       run: |  
         sudo apt-get update  
         sudo apt-get install -y google-chrome-stable  
-        mkdir -p /usr/local/share/chromedriver  
+        sudo mkdir -p /usr/local/share/chromedriver  
         CHROME_VERSION=$(google-chrome --version | cut -d' ' -f3 | cut -d'.' -f1)  
         wget "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_VERSION" -q -O /tmp/latest_chrome_driver_version  
         CHROMEDRIVER_VERSION=$$(cat /tmp/latest_chrome_driver_version)  
