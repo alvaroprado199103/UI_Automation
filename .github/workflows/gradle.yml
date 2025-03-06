@@ -46,14 +46,16 @@ jobs:
       run: |  
         sudo apt-get update  
         sudo apt-get install -y google-chrome-stable  
+        echo "Chrome Version: $(google-chrome --version)"  # Imprimir la versión de Chrome  
         sudo mkdir -p /usr/local/share/chromedriver  
         CHROME_VERSION=$(google-chrome --version | cut -d' ' -f3 | cut -d'.' -f1)  
         wget "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_VERSION" -q -O /tmp/latest_chrome_driver_version  
         CHROMEDRIVER_VERSION=$$(cat /tmp/latest_chrome_driver_version)  
+        echo "ChromeDriver Version: $CHROMEDRIVER_VERSION" # Imprimir la versión del ChromeDriver  
         wget "https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip" -q -O /tmp/chromedriver_linux64.zip  
         unzip /tmp/chromedriver_linux64.zip -d /usr/local/share/chromedriver  
         chmod +x /usr/local/share/chromedriver/chromedriver  
-        sudo ln -s /usr/local/share/chromedriver/chromedriver /usr/bin/chromedriver 
+        sudo ln -s /usr/local/share/chromedriver/chromedriver /usr/bin/chromedriver  
 
     - name: Build with Gradle Wrapper  
       run: ./gradlew build 
