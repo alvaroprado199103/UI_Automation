@@ -40,6 +40,7 @@ dependencies {
     implementation 'io.github.bonigarcia:webdrivermanager:5.9.3'  
     testImplementation 'io.rest-assured:rest-assured:5.4.0'  
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.1'  
+    implementation 'io.github.bonigarcia:webdrivermanager:5.7.0' 
 
 }  
 
