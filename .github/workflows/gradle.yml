@@ -44,12 +44,19 @@ jobs:
 
     - name: Set up Chrome Driver  
       run: |  
+          # Actualizar e instalar Chrome  
+          sudo apt-get update  
+          sudo apt-get install -y google-chrome-stable  
 
-        sudo apt-get update  
-        sudo apt-get install -y google-chrome-stable  
+          # Añadir el repositorio de Google Chrome (necesario para obtener la última versión de ChromeDriver)  
+          wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -  
+          sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'  
 
-        # Instalar el paquete chromedriver directamente desde los repositorios de Ubuntu  
-        sudo apt-get install -y chromedriver  
+          # Actualizar de nuevo para incluir el nuevo repositorio  
+          sudo apt-get update  
+
+          # Instalar ChromeDriver  
+          sudo apt-get install -y chromedriver  
 
     - name: Build with Gradle Wrapper  
       run: ./gradlew build 
