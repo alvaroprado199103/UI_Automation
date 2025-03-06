@@ -46,18 +46,11 @@ jobs:
       run: |  
         sudo apt-get update  
         sudo apt-get install -y google-chrome-stable  
-        echo "Chrome Version: $(google-chrome --version)"  # Imprimir la versión de Chrome  
-        sudo mkdir -p /usr/local/share/chromedriver  
-        sudo apt-get update  
-        sudo apt-get install -y google-chrome-stable  
         CHROME_VERSION=$(google-chrome --version | cut -d' ' -f3)  
         echo "Chrome Version: $CHROME_VERSION"  
         
-        # Determinar la versión principal de Chrome (ej: 133)  
-        CHROME_MAJOR_VERSION=$(echo "$CHROME_VERSION" | cut -d'.' -f1)  
-        
-        # Construir la URL para descargar el ChromeDriver directamente  
-        CHROMEDRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_MAJOR_VERSION")  
+        # Obtener la versión EXACTA del ChromeDriver  
+        CHROMEDRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_VERSION")  
         echo "ChromeDriver Version: $CHROMEDRIVER_VERSION"  
         
         sudo mkdir -p /usr/local/share/chromedriver  
