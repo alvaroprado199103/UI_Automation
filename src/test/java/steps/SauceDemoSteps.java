@@ -2,6 +2,8 @@ package steps;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
@@ -21,11 +23,16 @@ public class SauceDemoSteps {
     public void initialize() {
         System.out.println("Inicializando el WebDriver...");
         try {
+            ChromeOptions options = new ChromeOptions();
+            options.addArguments("--headless"); // Ejecutar sin interfaz gráfica
+            options.addArguments("--disable-gpu"); // Mejor compatibilidad en algunos entornos
+            options.addArguments("--no-sandbox"); // Evita problemas en entornos CI/CD
+            options.addArguments("--disable-dev-shm-usage"); // Mejora estabilidad en contenedores
             System.out.println("Configurando WebDriverManager...");
             WebDriverManager.chromedriver().setup();
             System.out.println("WebDriverManager configurado.");
             System.out.println("Creando instancia de ChromeDriver...");
-            driver = new ChromeDriver();
+            driver = new ChromeDriver(options);
             System.out.println("Instancia de ChromeDriver creada.");
             loginPage = new LoginPage(driver);
             mainPage = new MainPage(driver);
