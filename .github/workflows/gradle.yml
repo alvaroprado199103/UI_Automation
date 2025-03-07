@@ -53,13 +53,6 @@ jobs:
     - name: Build with Gradle Wrapper  
       run: ./gradlew build  
 
-    # Añadimos un paso para capturar la salida de System.out  
-    - name: Capture System.out  
-      run: cat build/reports/tests/test/classes/runner.Scenario1.html | grep -oP '(?<=<div class="output">).*(?=</div>)' > system_out.log  
-
-    - name: Print System.out  
-      run: cat system_out.log  
-
     - name: Run Tests  
       run: ./gradlew test --tests "runner.Scenario1"  
 
