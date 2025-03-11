@@ -53,4 +53,4 @@ jobs:
         path: build/reports/checkstyle  
     
     - name: Run Tests  
-      run: ./gradlew test --tests "runner.Scenario1"  
+      run: ./gradlew test --tests "runner.CucumberRunner"  
