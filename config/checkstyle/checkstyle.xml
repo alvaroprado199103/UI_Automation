@@ -1,52 +1,65 @@
-<?xml version="1.0"?>
-<!DOCTYPE module PUBLIC
-    "-//Checkstyle//DTD Checkstyle Configuration 1.3//EN"
-    "https://checkstyle.org/dtds/configuration_1_3.dtd">
-<module name="Checker">
+<?xml version="1.0"?>  
+<!DOCTYPE module PUBLIC  
+    "-//Checkstyle//DTD Checkstyle Configuration 1.3//EN"  
+    "https://checkstyle.org/dtds/configuration_1_3.dtd">  
+<module name="Checker">  
 
-    <!-- Limit the maximum line length to 120 characters -->
-    <module name="LineLength">
-        <property name="max" value="120"/>
-    </module>
+    <!-- Limit the maximum line length to 120 characters -->  
+    <module name="LineLength">  
+        <property name="max" value="120"/>  
+    </module>  
 
-    <module name="RegexpSingleline">
-        <property name="format" value="\s+$"/>
-        <property name="message" value="Trailing whitespace detected"/>
-    </module>
+    <module name="RegexpSingleline">  
+        <property name="format" value="\s+$"/>  
+        <property name="message" value="Trailing whitespace detected"/>  
+    </module>  
 
-    <!-- Code style checks -->
-    <module name="TreeWalker">
+    <!-- Code style checks -->  
+    <module name="TreeWalker">  
 
-        <!-- Prohibit unused imports in the code -->
-        <module name="UnusedImports"/>
+        <!-- Prohibit unused imports in the code -->  
+        <module name="UnusedImports"/>  
+
+        <!-- Ensure proper whitespace usage around operators and braces -->  
+        <module name="WhitespaceAround"/>  
+
+        <!-- Enforce camelCase naming for local variables -->  
+        <module name="LocalVariableName">  
+            <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>  
+        </module>  
         
-        <!-- Ensure proper whitespace usage around operators and braces -->
-        <module name="WhitespaceAround"/>
+        <!-- Require constants to be in uppercase with underscores -->  
+        <module name="ConstantName">  
+            <property name="format" value="^[A-Z][A-Z0-9_]*$"/>  
+        </module>  
         
-        <!-- Enforce camelCase naming for local variables -->
-        <module name="LocalVariableName">
-            <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
-        </module>
+        <!-- Enforce braces `{}` for all control structures -->  
+        <module name="NeedBraces"/>  
+
+        <!-- Limit the maximum number of lines in a method to 50 -->  
+        <module name="MethodLength">  
+            <property name="max" value="50"/>  
+        </module>  
+
+        <!-- Ensure only one statement per line -->  
+        <module name="OneStatementPerLine"/>  
+
+        <!-- Avoid methods with too many parameters -->  
+        <module name="ParameterNumber">  
+            <property name="max" value="5"/>  
+        </module> <!-- Limits the number of parameters in methods to 5 for better readability -->  
+
+        <!-- Avoid the use of magic numbers in the code -->  
+        <module name="MagicNumber"/>  
         
-        <!-- Require constants to be in uppercase with underscores -->
-        <module name="ConstantName">
-            <property name="format" value="^[A-Z][A-Z0-9_]*$"/>
-        </module>
-        
-        <!-- Enforce braces `{}` for all control structures -->
-        <module name="NeedBraces"/>
+        <!-- Ensure JavaDoc documentation is provided for public methods and classes -->  
+        <module name="JavadocType">  
+            <property name="scope" value="public"/>  
+        </module> <!-- Requires Javadoc for public classes for better understanding of code -->  
 
-        <!-- Limit the maximum number of lines in a method to 50 -->
-        <module name="MethodLength">
-            <property name="max" value="50"/>
-        </module>
+    </module>  
 
-        <!-- Ensure only one statement per line -->
-        <module name="OneStatementPerLine"/>
+    <!-- Ensure a newline at the end of the file -->  
+    <module name="NewlineAtEndOfFile"/>  
 
-    </module>
-
-    <!-- Ensure a newline at the end of the file -->
-    <module name="NewlineAtEndOfFile"/>
-
-</module>
+</module>  

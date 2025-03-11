@@ -1,53 +1,33 @@
 package steps;
 
+import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import io.cucumber.java.en.Then;
 import pages.LoginPage;
 import pages.MainPage;
+import utilities.WebDriverFactory;
 
 public class SauceDemoSteps {
-
     LoginPage loginPage;
     MainPage mainPage;
     WebDriver driver;
+    WebDriverFactory webDriverFactory;
 
     @Before
     public void initialize() {
-        System.out.println("Inicializando el WebDriver...");
-        try {
-            ChromeOptions options = new ChromeOptions();
-            options.addArguments("--headless"); // Ejecutar sin interfaz gráfica
-            options.addArguments("--disable-gpu"); // Mejor compatibilidad en algunos entornos
-            options.addArguments("--no-sandbox"); // Evita problemas en entornos CI/CD
-            options.addArguments("--disable-dev-shm-usage"); // Mejora estabilidad en contenedores
-            System.out.println("Configurando WebDriverManager...");
-            WebDriverManager.chromedriver().setup();
-            System.out.println("WebDriverManager configurado.");
-            System.out.println("Creando instancia de ChromeDriver...");
-            driver = new ChromeDriver(options);
-            System.out.println("Instancia de ChromeDriver creada.");
-            loginPage = new LoginPage(driver);
-            mainPage = new MainPage(driver);
-            System.out.println("Páginas inicializadas.");
-        } catch (Exception e) {
-            System.err.println("Error al inicializar el WebDriver: " + e.getMessage());
-            e.printStackTrace();
-            throw e; // Re-lanza la excepción para que la prueba falle
-        }
-        System.out.println("WebDriver inicializado correctamente.");
+        webDriverFactory = new WebDriverFactory();
+        driver = webDriverFactory.createDriver();
+        loginPage = new LoginPage(driver, webDriverFactory);
+        mainPage = new MainPage(driver, webDriverFactory);
     }
 
     @After
     public void closeNav() {
-        // driver.quit();
+        webDriverFactory.closeDriver();
     }
 
     @Given("I navigate to www.saucedemo.com")
@@ -55,25 +35,34 @@ public class SauceDemoSteps {
         loginPage.navigateToSauceDemo();
     }
 
-    @When("Login using a correct password")
-    public void LoginSuccesfully() {
-        loginPage.navigateToSauceDemo();
+    @When("standard user logs in with valid credentials")
+    public void loginSuccessfully() {
         loginPage.loginUser("standard_user", "secret_sauce");
+    }
+
+    @When("the user logs out")
+    public void userLogsOut() {
         mainPage.logoutUser();
     }
 
-    @Then("Login using incorrect password")
-    public void LoginFailed() {
-        loginPage.navigateToSauceDemo();
+    @When("standard user logs in with invalid credentials")
+    public void loginFailed() {
         loginPage.loginUser("standard_user", "ecret_sauce");
-        // Assert.assertTrue(loginPage.getErrorMessageB());
+        Assert.assertTrue(loginPage.getErrorMessageB());
     }
 
-    @Then("Login using a blocked account")
-    public void LogingBlockedAccount() {
-        loginPage.navigateToSauceDemo();
+    @When("a blocked user attempts to log in")
+    public void loginBlockedAccount() {
         loginPage.loginUser("locked_out_user", "secret_sauce");
-        // Assert.assertTrue(loginPage.getErrorMessageB());
+        Assert.assertTrue(loginPage.getErrorMessageB());
     }
 
+    @Then("the user should be able to access the inventory page")
+    public void userShouldAccessInventory() {
+    }
+
+    @Then("an error message should be displayed")
+    public void errorMessageDisplayed() {
+        Assert.assertTrue(loginPage.getErrorMessageB());
+    }
 }

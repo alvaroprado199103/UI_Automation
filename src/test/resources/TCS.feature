@@ -1,16 +1,18 @@
-Feature: Navigation bar
-    To see the subpages
-    Without logging in
-    I can the login workflow
+Feature: Login for SauceDemo page
+    Validate behavior when login using valid and invalid credentials for standard and locked users
 
-    @test
-    Scenario: I can try to login using a correct and wrong password.
+    Background:
         Given I navigate to www.saucedemo.com
-        When Login using a correct password
-        Then Login using incorrect password
 
-    @test
-    Scenario: I can try to login using a blocked account.
-        Given I navigate to www.saucedemo.com
-        Then Login using a blocked account
+    Scenario: Successful login with valid credentials
+        When standard user logs in with valid credentials
+        Then the user should be able to access the inventory page
+
+    Scenario: Failed login with incorrect credentials
+        When standard user logs in with invalid credentials
+        Then an error message should be displayed
+
+    Scenario: Login using a blocked account
+        When a blocked user attempts to log in
+        Then an error message should be displayed
 

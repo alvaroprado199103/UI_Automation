@@ -1,13 +1,10 @@
 package pages;
 
-import java.time.Duration;
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
-import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import utilities.WebDriverFactory;
 
 public class MainPage extends BasePage {
 
@@ -19,25 +16,25 @@ public class MainPage extends BasePage {
     private WebElement LogoutBtn;
     @FindBy(how = How.XPATH, using = "//div[@class='error-message-container error']")
     private WebElement ErrorMsg;
-    Wait<WebDriver> wait;
 
-    public MainPage(WebDriver driver) {
+    private WebDriverFactory webDriverFactory;
+
+    public MainPage(WebDriver driver, WebDriverFactory webDriverFactory) {
         super(driver);
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        this.webDriverFactory = webDriverFactory;
     }
 
     // Logout User
     public void logoutUser() {
-        wait.until(d -> MenuBtn.isDisplayed());
+        webDriverFactory.waitForClickability(MenuBtn);
         MenuBtn.click();
-        wait.until(d -> LogoutBtn.isDisplayed());
+        webDriverFactory.waitForClickability(LogoutBtn);
         LogoutBtn.click();
     }
 
-    // Error MsgValidation
+    // Error Msg Validation
     public boolean ErrorMsg() {
-        wait.until(d -> ErrorMsg.isDisplayed());
+        webDriverFactory.waitForVisibility(ErrorMsg);
         return ErrorMsg.isDisplayed();
     }
-
 }

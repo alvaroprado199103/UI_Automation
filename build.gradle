@@ -40,7 +40,6 @@ dependencies {
     implementation 'io.github.bonigarcia:webdrivermanager:5.9.3'  
     testImplementation 'io.rest-assured:rest-assured:5.4.0'  
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.1'  
-    // Añadir la dependencia slf4j-simple  
     implementation 'org.slf4j:slf4j-simple:2.0.7'  
 }  
 
