@@ -4,7 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
-import utilities.WebDriverFactory;
+import utilities.WebDriverWaitUtils;
 
 public class MainPage extends BasePage {
 
@@ -16,25 +16,32 @@ public class MainPage extends BasePage {
     private WebElement LogoutBtn;
     @FindBy(how = How.XPATH, using = "//div[@class='error-message-container error']")
     private WebElement ErrorMsg;
+    @FindBy(how = How.XPATH, using = "//div[@class='app_logo' and text()='Swag Labs']")
+    private WebElement MainMenuTitle;
 
-    private WebDriverFactory webDriverFactory;
+    private WebDriverWaitUtils webDriverWaitUtils;
 
-    public MainPage(WebDriver driver, WebDriverFactory webDriverFactory) {
+    public MainPage(WebDriver driver, WebDriverWaitUtils webDriverWaitUtils) {
         super(driver);
-        this.webDriverFactory = webDriverFactory;
+        this.webDriverWaitUtils = webDriverWaitUtils;
     }
 
     // Logout User
     public void logoutUser() {
-        webDriverFactory.waitForClickability(MenuBtn);
+        webDriverWaitUtils.waitForClickability(MenuBtn);
         MenuBtn.click();
-        webDriverFactory.waitForClickability(LogoutBtn);
+        webDriverWaitUtils.waitForClickability(LogoutBtn);
         LogoutBtn.click();
     }
 
     // Error Msg Validation
     public boolean ErrorMsg() {
-        webDriverFactory.waitForVisibility(ErrorMsg);
+        webDriverWaitUtils.waitForVisibility(ErrorMsg);
         return ErrorMsg.isDisplayed();
+    }
+
+    // Main menu Dashboard validation
+    public void MainMenuValidation() {
+        webDriverWaitUtils.waitForVisibility(MainMenuTitle);
     }
 }

@@ -10,24 +10,27 @@ import io.cucumber.java.en.Then;
 import pages.LoginPage;
 import pages.MainPage;
 import utilities.WebDriverFactory;
+import utilities.WebDriverWaitUtils;
 
 public class SauceDemoSteps {
     LoginPage loginPage;
     MainPage mainPage;
     WebDriver driver;
     WebDriverFactory webDriverFactory;
+    WebDriverWaitUtils webDriverWaitUtils;
 
     @Before
     public void initialize() {
         webDriverFactory = new WebDriverFactory();
         driver = webDriverFactory.createDriver();
-        loginPage = new LoginPage(driver, webDriverFactory);
-        mainPage = new MainPage(driver, webDriverFactory);
+        webDriverWaitUtils = new WebDriverWaitUtils(driver);
+        loginPage = new LoginPage(driver, webDriverWaitUtils);
+        mainPage = new MainPage(driver, webDriverWaitUtils);
     }
 
     @After
     public void closeNav() {
-        webDriverFactory.closeDriver();
+        webDriverWaitUtils.closeDriver();
     }
 
     @Given("I navigate to www.saucedemo.com")
@@ -48,17 +51,16 @@ public class SauceDemoSteps {
     @When("standard user logs in with invalid credentials")
     public void loginFailed() {
         loginPage.loginUser("standard_user", "ecret_sauce");
-        Assert.assertTrue(loginPage.getErrorMessageB());
     }
 
     @When("a blocked user attempts to log in")
     public void loginBlockedAccount() {
         loginPage.loginUser("locked_out_user", "secret_sauce");
-        Assert.assertTrue(loginPage.getErrorMessageB());
     }
 
     @Then("the user should be able to access the inventory page")
     public void userShouldAccessInventory() {
+        mainPage.MainMenuValidation();
     }
 
     @Then("an error message should be displayed")

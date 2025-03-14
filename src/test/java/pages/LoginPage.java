@@ -4,11 +4,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
-import utilities.WebDriverFactory;
+import utilities.WebDriverWaitUtils;
 
 public class LoginPage extends BasePage {
 
-    private WebDriverFactory webDriverFactory;
+    private WebDriverWaitUtils webDriverWaitUtils;
 
     @FindBy(how = How.ID, using = "user-name")
     private WebElement Username;
@@ -19,9 +19,9 @@ public class LoginPage extends BasePage {
     @FindBy(how = How.XPATH, using = "//div[@class='error-message-container error']")
     private WebElement ErrorMsg;
 
-    public LoginPage(WebDriver driver, WebDriverFactory webDriverFactory) {
+    public LoginPage(WebDriver driver, WebDriverWaitUtils webDriverWaitUtils) {
         super(driver);
-        this.webDriverFactory = webDriverFactory;
+        this.webDriverWaitUtils = webDriverWaitUtils;
     }
 
     // Navigate to www.saucedemo.com
@@ -31,7 +31,7 @@ public class LoginPage extends BasePage {
 
     // Login User
     public void loginUser(String username, String password) {
-        webDriverFactory.waitForClickability(LoginBtn);
+        webDriverWaitUtils.waitForClickability(LoginBtn);
         Username.sendKeys(username);
         Password.sendKeys(password);
         LoginBtn.click();
