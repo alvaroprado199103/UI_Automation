@@ -122,3 +122,9 @@ gradle-app.setting
 *.hprof
 
 # End of https://www.toptal.com/developers/gitignore/api/java,visualstudiocode,gradle,macos,git
+
+#Bin Folder
+bin/
+
+#Target Folder
+target/
