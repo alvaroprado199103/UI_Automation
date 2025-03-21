@@ -1,34 +1,36 @@
 package steps;
 
+import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.Assert;
-
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import io.cucumber.java.en.Then;
-import pages.*;
+import pages.LoginPage;
+import pages.MainPage;
+import utilities.WebDriverFactory;
+import utilities.WebDriverWaitUtils;
 
 public class SauceDemoSteps {
-
     LoginPage loginPage;
     MainPage mainPage;
     WebDriver driver;
+    WebDriverFactory webDriverFactory;
+    WebDriverWaitUtils webDriverWaitUtils;
 
     @Before
     public void initialize() {
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
-        loginPage = new LoginPage(driver);
-        mainPage = new MainPage(driver);
+        webDriverFactory = new WebDriverFactory();
+        driver = webDriverFactory.createDriver();
+        webDriverWaitUtils = new WebDriverWaitUtils(driver);
+        loginPage = new LoginPage(driver, webDriverWaitUtils);
+        mainPage = new MainPage(driver, webDriverWaitUtils);
     }
 
     @After
     public void closeNav() {
-        driver.close();
+        driver.quit();
     }
 
     @Given("I navigate to www.saucedemo.com")
@@ -36,25 +38,33 @@ public class SauceDemoSteps {
         loginPage.navigateToSauceDemo();
     }
 
-    @When("Login using a correct password")
-    public void LoginSuccesfully() {
-        loginPage.navigateToSauceDemo();
+    @When("standard user logs in with valid credentials")
+    public void userLogsInWithValidCredentials() {
         loginPage.loginUser("standard_user", "secret_sauce");
+    }
+
+    @When("the user logs out")
+    public void userLogsOut() {
         mainPage.logoutUser();
     }
 
-    @Then("Login using incorrect password")
-    public void LoginFailed() {
-        loginPage.navigateToSauceDemo();
+    @When("standard user logs in with invalid credentials")
+    public void userLogsInWithInvalidCredentials() {
         loginPage.loginUser("standard_user", "ecret_sauce");
-        Assert.assertTrue(loginPage.getErrorMessageB());
     }
 
-    @Then("Login using a blocked account")
-    public void LogingBlockedAccount() {
-        loginPage.navigateToSauceDemo();
+    @When("a blocked user attempts to log in")
+    public void loginBlockedAccount() {
         loginPage.loginUser("locked_out_user", "secret_sauce");
-        Assert.assertTrue(loginPage.getErrorMessageB());
     }
 
+    @Then("the user should be able to access the inventory page")
+    public void userShouldAccessInventory() {
+        Assert.assertTrue(mainPage.isMainMenuVisible());
+    }
+
+    @Then("an error message should be displayed")
+    public void errorMessageDisplayed() {
+        Assert.assertTrue(loginPage.isErrorMessageDisplayed());
+    }
 }

@@ -1,14 +1,11 @@
 package pages;
 
-import java.time.Duration;
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
-import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
+import utilities.WebDriverWaitUtils;
+import org.openqa.selenium.TimeoutException;
 
 public class MainPage extends BasePage {
 
@@ -20,25 +17,31 @@ public class MainPage extends BasePage {
     private WebElement LogoutBtn;
     @FindBy(how = How.XPATH, using = "//div[@class='error-message-container error']")
     private WebElement ErrorMsg;
-    Wait<WebDriver> wait;
+    @FindBy(how = How.XPATH, using = "//div[@class='app_logo' and text()='Swag Labs']")
+    private WebElement MainMenuTitle;
 
-    public MainPage(WebDriver driver) {
+    private WebDriverWaitUtils webDriverWaitUtils;
+
+    public MainPage(WebDriver driver, WebDriverWaitUtils webDriverWaitUtils) {
         super(driver);
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        this.webDriverWaitUtils = webDriverWaitUtils;
     }
 
     // Logout User
     public void logoutUser() {
-        wait.until(d -> MenuBtn.isDisplayed());
+        webDriverWaitUtils.waitForClickability(MenuBtn);
         MenuBtn.click();
-        wait.until(d -> LogoutBtn.isDisplayed());
+        webDriverWaitUtils.waitForClickability(LogoutBtn);
         LogoutBtn.click();
     }
 
-    // Error MsgValidation
-    public boolean ErrorMsg() {
-        wait.until(d -> ErrorMsg.isDisplayed());
-        return ErrorMsg.isDisplayed();
+    // Main menu Dashboard validation
+    public boolean isMainMenuVisible() {
+        try {
+            webDriverWaitUtils.waitForVisibility(MainMenuTitle);
+            return true;
+        } catch (TimeoutException e) {
+            return false;
+        }
     }
-
 }

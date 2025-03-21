@@ -4,11 +4,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
-import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import java.time.Duration;
+import utilities.WebDriverWaitUtils;
 
 public class LoginPage extends BasePage {
+
+    private WebDriverWaitUtils webDriverWaitUtils;
 
     @FindBy(how = How.ID, using = "user-name")
     private WebElement Username;
@@ -18,11 +18,10 @@ public class LoginPage extends BasePage {
     private WebElement LoginBtn;
     @FindBy(how = How.XPATH, using = "//div[@class='error-message-container error']")
     private WebElement ErrorMsg;
-    Wait<WebDriver> wait;
 
-    public LoginPage(WebDriver driver) {
+    public LoginPage(WebDriver driver, WebDriverWaitUtils webDriverWaitUtils) {
         super(driver);
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        this.webDriverWaitUtils = webDriverWaitUtils;
     }
 
     // Navigate to www.saucedemo.com
@@ -32,15 +31,14 @@ public class LoginPage extends BasePage {
 
     // Login User
     public void loginUser(String username, String password) {
-        wait.until(d -> LoginBtn.isEnabled());
+        webDriverWaitUtils.waitForClickability(LoginBtn);
         Username.sendKeys(username);
         Password.sendKeys(password);
         LoginBtn.click();
     }
 
     // Get error Message
-    public boolean getErrorMessageB() {
+    public boolean isErrorMessageDisplayed() {
         return ErrorMsg.isDisplayed();
     }
-
 }
