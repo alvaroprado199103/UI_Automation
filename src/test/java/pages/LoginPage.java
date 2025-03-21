@@ -38,7 +38,7 @@ public class LoginPage extends BasePage {
     }
 
     // Get error Message
-    public boolean getErrorMessageB() {
+    public boolean isErrorMessageDisplayed() {
         return ErrorMsg.isDisplayed();
     }
 }

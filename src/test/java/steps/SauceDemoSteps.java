@@ -30,7 +30,7 @@ public class SauceDemoSteps {
 
     @After
     public void closeNav() {
-        webDriverWaitUtils.closeDriver();
+        driver.quit();
     }
 
     @Given("I navigate to www.saucedemo.com")
@@ -39,7 +39,7 @@ public class SauceDemoSteps {
     }
 
     @When("standard user logs in with valid credentials")
-    public void loginSuccessfully() {
+    public void userLogsInWithValidCredentials() {
         loginPage.loginUser("standard_user", "secret_sauce");
     }
 
@@ -49,7 +49,7 @@ public class SauceDemoSteps {
     }
 
     @When("standard user logs in with invalid credentials")
-    public void loginFailed() {
+    public void userLogsInWithInvalidCredentials() {
         loginPage.loginUser("standard_user", "ecret_sauce");
     }
 
@@ -60,11 +60,11 @@ public class SauceDemoSteps {
 
     @Then("the user should be able to access the inventory page")
     public void userShouldAccessInventory() {
-        mainPage.MainMenuValidation();
+        Assert.assertTrue(mainPage.isMainMenuVisible());
     }
 
     @Then("an error message should be displayed")
     public void errorMessageDisplayed() {
-        Assert.assertTrue(loginPage.getErrorMessageB());
+        Assert.assertTrue(loginPage.isErrorMessageDisplayed());
     }
 }

@@ -1,65 +1,105 @@
-<?xml version="1.0"?>  
-<!DOCTYPE module PUBLIC  
-    "-//Checkstyle//DTD Checkstyle Configuration 1.3//EN"  
-    "https://checkstyle.org/dtds/configuration_1_3.dtd">  
-<module name="Checker">  
+<?xml version="1.0"?>
+<!DOCTYPE module PUBLIC
+          "-//Checkstyle//DTD Checkstyle Configuration 1.3//EN"
+          "https://checkstyle.org/dtds/configuration_1_3.dtd">
 
-    <!-- Limit the maximum line length to 120 characters -->  
-    <module name="LineLength">  
-        <property name="max" value="120"/>  
-    </module>  
+<module name="Checker">
+  <property name="charset" value="UTF-8"/>
+  <property name="severity" value="warning"/>
+  <property name="fileExtensions" value="java, properties, xml"/>
 
-    <module name="RegexpSingleline">  
-        <property name="format" value="\s+$"/>  
-        <property name="message" value="Trailing whitespace detected"/>  
-    </module>  
+  <!-- Exclusion Filters -->
+  <module name="BeforeExecutionExclusionFileFilter">
+    <property name="fileNamePattern" value="module\-info\.java$"/>
+  </module>
+  <module name="SuppressWarningsFilter"/>
 
-    <!-- Code style checks -->  
-    <module name="TreeWalker">  
+  <!-- General Checks -->
+  <module name="FileTabCharacter">
+    <property name="eachLine" value="true"/>
+  </module>
+  <module name="LineLength">
+    <property name="max" value="120"/>
+  </module>
+  <module name="RegexpSingleline">
+    <property name="format" value="\s+$"/>
+    <property name="message" value="Trailing whitespace detected"/>
+  </module>
 
-        <!-- Prohibit unused imports in the code -->  
-        <module name="UnusedImports"/>  
+  <module name="TreeWalker">
+    <!-- Prohibit unused imports in the code -->
+    <module name="UnusedImports"/>
 
-        <!-- Ensure proper whitespace usage around operators and braces -->  
-        <module name="WhitespaceAround"/>  
+    <!-- Ensure proper whitespace usage around operators and braces -->
+    <module name="WhitespaceAround"/>
+    <module name="WhitespaceAfter"/>
+    <module name="NoWhitespaceBefore"/>
 
-        <!-- Enforce camelCase naming for local variables -->  
-        <module name="LocalVariableName">  
-            <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>  
-        </module>  
-        
-        <!-- Require constants to be in uppercase with underscores -->  
-        <module name="ConstantName">  
-            <property name="format" value="^[A-Z][A-Z0-9_]*$"/>  
-        </module>  
-        
-        <!-- Enforce braces `{}` for all control structures -->  
-        <module name="NeedBraces"/>  
+    <!-- Enforce camelCase naming for local variables -->
+    <module name="LocalVariableName">
+      <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
+    </module>
 
-        <!-- Limit the maximum number of lines in a method to 50 -->  
-        <module name="MethodLength">  
-            <property name="max" value="50"/>  
-        </module>  
+    <!-- Require constants to be in uppercase with underscores -->
+    <module name="ConstantName">
+      <property name="format" value="^[A-Z][A-Z0-9_]*$"/>
+    </module>
 
-        <!-- Ensure only one statement per line -->  
-        <module name="OneStatementPerLine"/>  
+    <!-- Enforce braces `{}` for all control structures -->
+    <module name="NeedBraces"/>
 
-        <!-- Avoid methods with too many parameters -->  
-        <module name="ParameterNumber">  
-            <property name="max" value="5"/>  
-        </module> <!-- Limits the number of parameters in methods to 5 for better readability -->  
+    <!-- Limit the maximum number of lines in a method to 50 -->
+    <module name="MethodLength">
+      <property name="max" value="50"/>
+    </module>
 
-        <!-- Avoid the use of magic numbers in the code -->  
-        <module name="MagicNumber"/>  
-        
-        <!-- Ensure JavaDoc documentation is provided for public methods and classes -->  
-        <module name="JavadocType">  
-            <property name="scope" value="public"/>  
-        </module> <!-- Requires Javadoc for public classes for better understanding of code -->  
+    <!-- Ensure only one statement per line -->
+    <module name="OneStatementPerLine"/>
 
-    </module>  
+    <!-- Avoid methods with too many parameters -->
+    <module name="ParameterNumber">
+      <property name="max" value="5"/>
+    </module>
 
-    <!-- Ensure a newline at the end of the file -->  
-    <module name="NewlineAtEndOfFile"/>  
+    <!-- Avoid the use of magic numbers in the code -->
+    <module name="MagicNumber"/>
 
-</module>  
+    <!-- Ensure JavaDoc documentation is provided for public methods and classes -->
+    <module name="JavadocType">
+      <property name="scope" value="public"/>
+    </module>
+    <module name="JavadocMethod">
+      <property name="accessModifiers" value="public"/>
+    </module>
+
+    <!-- Naming Conventions -->
+    <module name="PackageName">
+      <property name="format" value="^[a-z]+(\.[a-z][a-z0-9]*)*$"/>
+    </module>
+    <module name="TypeName">
+      <property name="format" value="^[A-Z][a-zA-Z0-9]*$"/>
+    </module>
+    <module name="MethodName">
+      <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
+    </module>
+    <module name="ParameterName">
+      <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
+    </module>
+
+    <!-- Control Flow -->
+    <module name="MissingSwitchDefault"/>
+    <module name="FallThrough"/>
+    <module name="AvoidNestedBlocks"/>
+    <module name="SimplifyBooleanExpression"/>
+
+    <!-- Miscellaneous -->
+    <module name="NoWhitespaceBefore"/>
+    <module name="ParenPad"/>
+    <module name="NoFinalizer"/>
+    <module name="OverloadMethodsDeclarationOrder"/>
+    <module name="SuppressWarningsHolder"/>
+  </module>
+
+  <!-- Ensure a newline at the end of the file -->
+  <module name="NewlineAtEndOfFile"/>
+</module>

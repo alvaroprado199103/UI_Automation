@@ -5,6 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import utilities.WebDriverWaitUtils;
+import org.openqa.selenium.TimeoutException;
 
 public class MainPage extends BasePage {
 
@@ -34,14 +35,13 @@ public class MainPage extends BasePage {
         LogoutBtn.click();
     }
 
-    // Error Msg Validation
-    public boolean ErrorMsg() {
-        webDriverWaitUtils.waitForVisibility(ErrorMsg);
-        return ErrorMsg.isDisplayed();
-    }
-
     // Main menu Dashboard validation
-    public void MainMenuValidation() {
-        webDriverWaitUtils.waitForVisibility(MainMenuTitle);
+    public boolean isMainMenuVisible() {
+        try {
+            webDriverWaitUtils.waitForVisibility(MainMenuTitle);
+            return true;
+        } catch (TimeoutException e) {
+            return false;
+        }
     }
 }
