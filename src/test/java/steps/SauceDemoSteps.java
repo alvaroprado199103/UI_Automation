@@ -6,31 +6,40 @@ import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
+import pages.shadowdemonpages.LoginPage;
+import pages.shadowdemonpages.MainPage;
 import io.cucumber.java.en.Then;
-import pages.LoginPage;
-import pages.MainPage;
-import utilities.WebDriverFactory;
 import utilities.WebDriverWaitUtils;
+import pages.BasePage;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class SauceDemoSteps {
-    LoginPage loginPage;
-    MainPage mainPage;
-    WebDriver driver;
-    WebDriverFactory webDriverFactory;
-    WebDriverWaitUtils webDriverWaitUtils;
+    private static final Logger LOGGER = Logger.getLogger(SauceDemoSteps.class.getName());
+    private LoginPage loginPage;
+    private MainPage mainPage;
+    private WebDriver driver;
+    private WebDriverWaitUtils webDriverWaitUtils;
 
     @Before
     public void initialize() {
-        webDriverFactory = new WebDriverFactory();
-        driver = webDriverFactory.createDriver();
-        webDriverWaitUtils = new WebDriverWaitUtils(driver);
-        loginPage = new LoginPage(driver, webDriverWaitUtils);
-        mainPage = new MainPage(driver, webDriverWaitUtils);
+        LOGGER.log(Level.INFO, "Initializing SauceDemo test environment...");
+        try {
+            driver = BasePage.initializeDriver(true);
+            webDriverWaitUtils = new WebDriverWaitUtils(driver);
+            loginPage = new LoginPage(driver, webDriverWaitUtils);
+            mainPage = new MainPage(driver, webDriverWaitUtils);
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Error setting up SauceDemo test environment: " + e.getMessage(), e);
+            throw e;
+        }
     }
 
     @After
     public void closeNav() {
-        driver.quit();
+        if (driver != null) {
+            driver.quit();
+        }
     }
 
     @Given("I navigate to www.saucedemo.com")
