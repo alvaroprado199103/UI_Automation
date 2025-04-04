@@ -18,11 +18,13 @@ public class BasePage {
     protected WebDriverWaitUtils waitUtils;
     private static final int DEFAULT_TIMEOUT_SECONDS = 10;
     private static final Logger LOGGER = Logger.getLogger(BasePage.class.getName());
+    private static WebDriver currentDriver;
 
     public BasePage(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(DEFAULT_TIMEOUT_SECONDS));
         this.waitUtils = new WebDriverWaitUtils(driver);
+        currentDriver = driver;
     }
 
     public static WebDriver initializeDriver(boolean headless) {
@@ -40,11 +42,16 @@ public class BasePage {
             WebDriver driver = new ChromeDriver(options);
             driver.manage().window().maximize();
             LOGGER.log(Level.INFO, "WebDriver initialized successfully.");
+            currentDriver = driver;
             return driver;
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "Error initializing WebDriver: " + e.getMessage(), e);
             throw e;
         }
+    }
+
+    public static WebDriver getCurrentDriver() {
+        return currentDriver;
     }
 
     protected void waitForElementVisible(WebElement element) {
