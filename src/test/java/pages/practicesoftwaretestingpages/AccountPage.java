@@ -4,24 +4,27 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import utilities.WebDriverWaitUtils;
 import pages.BasePage;
+import pages.practicesoftwaretestingpages.components.NavigationBarComponent;
 
 public class AccountPage extends BasePage {
-    @FindBy(xpath = "//a[normalize-space()='Home']")
-    private WebElement homeLink;
+    @FindBy(css = "a[data-test='nav-sign-in']")
+    private WebElement loginLink;
 
-    @FindBy(xpath = "//h1[normalize-space()='My account']")
-    private WebElement accountTitle;
+    private NavigationBarComponent navigationBar;
 
-    public AccountPage(WebDriver driver, WebDriverWaitUtils waitUtils) {
+    public AccountPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
+        this.navigationBar = new NavigationBarComponent(driver);
     }
 
-    public void clickHome() {
-        waitUtils.waitForVisibility(accountTitle);
-        waitUtils.waitForElementToBeClickable(homeLink);
-        homeLink.click();
+    public void goToLogin() {
+        waitUtils.waitForElementToBeClickable(loginLink);
+        loginLink.click();
+    }
+
+    public void goToHome() {
+        navigationBar.goToHome();
     }
 }

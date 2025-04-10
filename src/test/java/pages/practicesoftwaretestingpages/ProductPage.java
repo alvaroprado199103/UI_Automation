@@ -4,46 +4,28 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import utilities.WebDriverWaitUtils;
 import pages.BasePage;
+import pages.practicesoftwaretestingpages.components.NavigationBarComponent;
 
 public class ProductPage extends BasePage {
-    @FindBy(xpath = "//button[@data-test='add-to-cart']")
+    @FindBy(css = "button[data-test='add-to-cart']")
     private WebElement addToCartButton;
 
-    @FindBy(xpath = "//h1[@data-test='product-name']")
-    private WebElement productName;
-
-    @FindBy(xpath = "//span[@data-test='product-price']")
-    private WebElement productPrice;
-
-    @FindBy(xpath = "//div[@data-test='product-description']")
-    private WebElement productDescription;
-
-    @FindBy(xpath = "//div[@id='toast-container']")
+    @FindBy(css = "div#toast-container")
     private WebElement toastMessage;
 
-    @FindBy(xpath = "//a[@data-test='nav-home']")
-    private WebElement homeButton;
+    private NavigationBarComponent navigationBar;
 
-    public ProductPage(WebDriver driver, WebDriverWaitUtils waitUtils) {
+    public ProductPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
+        this.navigationBar = new NavigationBarComponent(driver);
     }
 
     public void addToCart() {
         waitUtils.waitForElementToBeClickable(addToCartButton);
         addToCartButton.click();
         waitUtils.waitForVisibility(toastMessage);
-        clickHome();
-    }
-
-    public void goBack() {
-        driver.navigate().back();
-    }
-
-    public void clickHome() {
-        waitUtils.waitForElementToBeClickable(homeButton);
-        homeButton.click();
+        navigationBar.goToHome();
     }
 }
