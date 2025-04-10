@@ -5,7 +5,12 @@ import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features = "src/test/resources", glue = "steps", plugin = { "pretty", "html:target/cucumber-reports" })
-
+@CucumberOptions(features = "src/test/resources", glue = "steps", plugin = {
+                "pretty",
+                "html:target/cucumber-reports",
+                "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm",
+                "json:build/cucumber-reports/cucumber.json"
+}, monochrome = true)
 public class CucumberRunner {
+        // This class is a unified runner for both Cucumber and Allure reporting
 }
