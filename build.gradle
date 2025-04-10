@@ -55,6 +55,7 @@ java {
     }  
 }  
 
+
 sourceSets {  
     test {  
         java {  
@@ -80,18 +81,4 @@ tasks.register('createAllureResultsDir') {
     }
 }
 
-// Deshabilitar la ejecución automática de los tests durante el build
-tasks.named('test').configure {
-    enabled = false
-}
-
-// Configuración de los tests para cuando se ejecuten manualmente
-test {
-    useJUnitPlatform()
-    testLogging {
-        events "passed", "skipped", "failed"
-    }
-    systemProperty 'allure.results.directory', 'build/allure-results'
-    systemProperty 'allure.link.issue.pattern', 'https://example.org/issue/{}'
-    systemProperty 'allure.link.tms.pattern', 'https://example.org/tms/{}'
-}
+test.dependsOn createAllureResultsDir
