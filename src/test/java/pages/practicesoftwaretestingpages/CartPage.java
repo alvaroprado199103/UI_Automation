@@ -4,7 +4,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import utilities.WebDriverWaitUtils;
 import pages.BasePage;
 
 import java.util.List;
@@ -28,7 +27,7 @@ public class CartPage extends BasePage {
     @FindBy(xpath = "//input[@data-test='quantity-input']")
     private List<WebElement> quantityInputs;
 
-    public CartPage(WebDriver driver, WebDriverWaitUtils waitUtils) {
+    public CartPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
     }

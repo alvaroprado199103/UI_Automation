@@ -4,7 +4,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import utilities.WebDriverWaitUtils;
 import utilities.ApiWaitUtils;
 import pages.BasePage;
 import java.util.List;
@@ -21,7 +20,7 @@ public class InvoicesPage extends BasePage {
 
     private ApiWaitUtils apiWaitUtils;
 
-    public InvoicesPage(WebDriver driver, WebDriverWaitUtils waitUtils) {
+    public InvoicesPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
         this.apiWaitUtils = new ApiWaitUtils(driver);

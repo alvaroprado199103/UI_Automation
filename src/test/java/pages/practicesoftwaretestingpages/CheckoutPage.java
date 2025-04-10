@@ -4,7 +4,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import utilities.WebDriverWaitUtils;
 import utilities.ApiWaitUtils;
 import pages.BasePage;
 
@@ -73,7 +72,7 @@ public class CheckoutPage extends BasePage {
 
     private ApiWaitUtils apiWaitUtils;
 
-    public CheckoutPage(WebDriver driver, WebDriverWaitUtils waitUtils) {
+    public CheckoutPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
         this.apiWaitUtils = new ApiWaitUtils(driver);

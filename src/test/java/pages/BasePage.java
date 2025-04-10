@@ -13,11 +13,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class BasePage {
+    private static final int DEFAULT_TIMEOUT_SECONDS = 10;
+    private static final Logger LOGGER = Logger.getLogger(BasePage.class.getName());
     protected WebDriver driver;
     protected WebDriverWait wait;
     protected WebDriverWaitUtils waitUtils;
-    private static final int DEFAULT_TIMEOUT_SECONDS = 10;
-    private static final Logger LOGGER = Logger.getLogger(BasePage.class.getName());
     private static WebDriver currentDriver;
 
     public BasePage(WebDriver driver) {

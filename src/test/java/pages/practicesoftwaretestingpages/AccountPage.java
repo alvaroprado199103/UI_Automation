@@ -5,26 +5,22 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import pages.BasePage;
-import pages.practicesoftwaretestingpages.components.NavigationBarComponent;
 
 public class AccountPage extends BasePage {
-    @FindBy(css = "a[data-test='nav-sign-in']")
-    private WebElement loginLink;
+    @FindBy(css = "a[data-test='nav-home']")
+    private WebElement homeLink;
 
-    private NavigationBarComponent navigationBar;
+    @FindBy(css = "h1[data-test='page-title']")
+    private WebElement accountTitle;
 
     public AccountPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
-        this.navigationBar = new NavigationBarComponent(driver);
-    }
-
-    public void goToLogin() {
-        waitUtils.waitForElementToBeClickable(loginLink);
-        loginLink.click();
     }
 
     public void goToHome() {
-        navigationBar.goToHome();
+        waitUtils.waitForVisibility(accountTitle);
+        waitUtils.waitForElementToBeClickable(homeLink);
+        homeLink.click();
     }
 }

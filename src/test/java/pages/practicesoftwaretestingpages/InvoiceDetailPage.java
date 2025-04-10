@@ -7,9 +7,8 @@ import org.openqa.selenium.support.PageFactory;
 import java.io.File;
 import java.time.Duration;
 import org.openqa.selenium.support.ui.FluentWait;
-
-import utilities.WebDriverWaitUtils;
 import utilities.ApiWaitUtils;
+
 import pages.BasePage;
 
 public class InvoiceDetailPage extends BasePage {
@@ -28,10 +27,9 @@ public class InvoiceDetailPage extends BasePage {
     private ApiWaitUtils apiWaitUtils;
     private String orderNumber;
 
-    public InvoiceDetailPage(WebDriver driver, WebDriverWaitUtils waitUtils) {
+    public InvoiceDetailPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
-        this.apiWaitUtils = new ApiWaitUtils(driver);
     }
 
     public void setOrderNumber(String orderNumber) {

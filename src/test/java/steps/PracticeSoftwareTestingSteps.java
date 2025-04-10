@@ -9,7 +9,6 @@ import io.cucumber.java.en.And;
 import org.openqa.selenium.WebDriver;
 import pages.BasePage;
 import pages.practicesoftwaretestingpages.*;
-import utilities.WebDriverWaitUtils;
 
 import java.util.Arrays;
 import java.util.logging.Level;
@@ -31,14 +30,13 @@ public class PracticeSoftwareTestingSteps {
     private WebDriver driver;
     private HomePage homePage;
     private LoginPagePST loginPage;
-    private FilterPage productsPage;
+    private ProductListPage productsPage;
     private ProductPage productPage;
     private CartPage cartPage;
     private AccountPage accountPage;
     private CheckoutPage checkoutPage;
     private InvoicesPage invoicesPage;
     private InvoiceDetailPage invoiceDetailPage;
-    private WebDriverWaitUtils waitUtils;
     private static final int MIN_PRICE = 50;
     private static final int MAX_PRICE = 150;
     private static final String[] SHIPPING_INFO = { "John", "Doe", "123 Main St", "New Yersey", "New York", "10001",
@@ -50,16 +48,15 @@ public class PracticeSoftwareTestingSteps {
         LOGGER.log(Level.INFO, "Initializing test environment...");
         try {
             driver = BasePage.initializeDriver(true);
-            waitUtils = new WebDriverWaitUtils(driver);
-            homePage = new HomePage(driver, waitUtils);
-            loginPage = new LoginPagePST(driver, waitUtils);
-            productsPage = new FilterPage(driver, waitUtils);
-            productPage = new ProductPage(driver, waitUtils);
-            cartPage = new CartPage(driver, waitUtils);
-            checkoutPage = new CheckoutPage(driver, waitUtils);
-            invoicesPage = new InvoicesPage(driver, waitUtils);
-            invoiceDetailPage = new InvoiceDetailPage(driver, waitUtils);
-            accountPage = new AccountPage(driver, waitUtils);
+            homePage = new HomePage(driver);
+            loginPage = new LoginPagePST(driver);
+            productsPage = new ProductListPage(driver);
+            productPage = new ProductPage(driver);
+            cartPage = new CartPage(driver);
+            checkoutPage = new CheckoutPage(driver);
+            invoicesPage = new InvoicesPage(driver);
+            invoiceDetailPage = new InvoiceDetailPage(driver);
+            accountPage = new AccountPage(driver);
             min = MIN_PRICE;
             max = MAX_PRICE;
         } catch (Exception e) {
@@ -101,21 +98,21 @@ public class PracticeSoftwareTestingSteps {
     public void userIsAuthenticated() {
         homePage.clickLogin();
         loginPage.login("customer@practicesoftwaretesting.com", "welcome01");
-        accountPage.clickHome();
+        accountPage.goToHome();
         Allure.addAttachment("Authentication", "text/plain", "User successfully authenticated");
     }
 
-    @When("the user searches for a hand tool using the search bar")
-    @Step("User searches for a hand tool")
-    @Description("User searches for a hammer using the search bar")
+    @When("the user searches for a Hammer using the search bar")
+    @Step("User searches for a Hammer")
+    @Description("User searches for a Hammer using the search bar")
     @Severity(SeverityLevel.NORMAL)
     public void userSearchesForHandTool() {
         homePage.searchProduct("hammer");
-        Allure.addAttachment("Search", "text/plain", "User searched for 'hammer'");
+        Allure.addAttachment("Search", "text/plain", "User searched for 'Hammer'");
     }
 
-    @When("the user selects a power tool using category filters")
-    @Step("User selects a power tool category")
+    @When("the user selects a Cordless Drill 24V using category filters")
+    @Step("User selects a Cordless Drill 24V category")
     @Description("User selects the Power Tools category from filters")
     @Severity(SeverityLevel.NORMAL)
     public void userSelectsPowerTool() {
@@ -123,7 +120,9 @@ public class PracticeSoftwareTestingSteps {
         Allure.addAttachment("Category Selection", "text/plain", "User selected 'Power Tools' category");
     }
 
-    @When("the user searches for another tool using combined filters")
+    @When("the user searches for a Leather toolbelt in the 'Other' category, " +
+            "with a price between '50' and '150', " +
+            "sorting the results by price from 'Low to High'")
     @Step("User applies combined filters")
     @Description("User selects Other category, sorts by price, and applies price filter")
     @Severity(SeverityLevel.NORMAL)
@@ -136,19 +135,19 @@ public class PracticeSoftwareTestingSteps {
                         max));
     }
 
-    @And("adds the hand tool to the cart")
-    @Step("User adds hand tool to cart")
-    @Description("User adds a hammer to the shopping cart")
+    @And("adds the Hammer to the cart")
+    @Step("User adds the Hammer to cart")
+    @Description("User adds a Hammer to the shopping cart")
     @Severity(SeverityLevel.NORMAL)
-    public void addHandToolToCart() {
+    public void addsHammerToCart() {
         productsPage.addProductToCart("Hammer");
         productPage.addToCart();
         Allure.addAttachment("Add to Cart", "text/plain", "User added 'Hammer' to cart");
     }
 
-    @And("adds the power tool to the cart")
-    @Step("User adds power tool to cart")
-    @Description("User adds a cordless drill to the shopping cart")
+    @And("adds the Cordless Drill 24V to the cart")
+    @Step("User adds Cordless Drill 24V to cart")
+    @Description("User adds a Cordless Drill 24V to the shopping cart")
     @Severity(SeverityLevel.NORMAL)
     public void addPowerToolToCart() {
         productsPage.addProductToCart("Cordless Drill 24V");
@@ -156,9 +155,9 @@ public class PracticeSoftwareTestingSteps {
         Allure.addAttachment("Add to Cart", "text/plain", "User added 'Cordless Drill 24V' to cart");
     }
 
-    @And("adds the third tool to the cart")
-    @Step("User adds third tool to cart")
-    @Description("User adds a leather toolbelt to the shopping cart")
+    @And("adds the Leather toolbelt to the cart")
+    @Step("User adds Leather toolbelt to cart")
+    @Description("User adds a Leather toolbelt to the shopping cart")
     @Severity(SeverityLevel.NORMAL)
     public void addThirdToolToCart() {
         productsPage.addProductToCart("Leather toolbelt");

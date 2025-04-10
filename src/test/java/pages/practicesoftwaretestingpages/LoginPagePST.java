@@ -4,23 +4,19 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import utilities.WebDriverWaitUtils;
 import pages.BasePage;
 
 public class LoginPagePST extends BasePage {
-    @FindBy(xpath = "//input[@id='email']")
+    @FindBy(css = "#email")
     private WebElement emailInput;
 
-    @FindBy(xpath = "//input[@id='password']")
+    @FindBy(css = "#password")
     private WebElement passwordInput;
 
-    @FindBy(xpath = "//input[@value='Login']")
+    @FindBy(css = "input[value='Login']")
     private WebElement loginButton;
 
-    @FindBy(xpath = "//div[@data-test='login-error']")
-    private WebElement errorMessage;
-
-    public LoginPagePST(WebDriver driver, WebDriverWaitUtils waitUtils) {
+    public LoginPagePST(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
     }
@@ -33,11 +29,6 @@ public class LoginPagePST extends BasePage {
         passwordInput.sendKeys(password);
         waitUtils.waitForElementToBeClickable(loginButton);
         loginButton.click();
-    }
-
-    public String getErrorMessage() {
-        waitUtils.waitForVisibility(errorMessage);
-        return errorMessage.getText();
     }
 
     public boolean isLoginPageDisplayed() {

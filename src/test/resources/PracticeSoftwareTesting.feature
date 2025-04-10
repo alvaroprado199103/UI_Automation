@@ -8,16 +8,16 @@ Feature: Phase 3 - E2E Purchase Flow
         And the user is authenticated with valid credentials
 
     Scenario: Successful purchase using combined filters
-        When the user searches for another tool using combined filters
-        And adds the third tool to the cart
+        When the user searches for a Leather toolbelt in the 'Other' category, with a price between '50' and '150', sorting the results by price from 'Low to High'
+        And adds the Leather toolbelt to the cart
         And the user proceeds to checkout
         And the user completes the payment process
         Then the purchase is completed successfully
         And the invoice is successfully associated with the user account
 
     Scenario: Complete a purchase with multiple products
-        When the user searches for a hand tool using the search bar
-        And adds the hand tool to the cart
+        When the user searches for a Hammer using the search bar
+        And adds the Hammer to the cart
         And the user goes to the cart
         And the user proceeds to checkout
         And the user fills in shipping information
@@ -28,20 +28,20 @@ Feature: Phase 3 - E2E Purchase Flow
         And the user should be able to view the invoice
 
     Scenario: Successful purchase with multiple products
-        When the user searches for a hand tool using the search bar
-        And adds the hand tool to the cart
-        And the user selects a power tool using category filters
-        And adds the power tool to the cart
-        And the user searches for another tool using combined filters
-        And adds the third tool to the cart
+        When the user searches for a Hammer using the search bar
+        And adds the Hammer to the cart
+        And the user selects a Cordless Drill 24V using category filters
+        And adds the Cordless Drill 24V to the cart
+        And the user searches for a Leather toolbelt in the 'Other' category, with a price between '50' and '150', sorting the results by price from 'Low to High'
+        And adds the Leather toolbelt to the cart
         And the user proceeds to checkout
         And the user completes the payment process
         Then the purchase is completed successfully
         And the invoice is successfully associated with the user account
 
     Scenario: Successful purchase using category filters
-        When the user selects a power tool using category filters
-        And adds the power tool to the cart
+        When the user selects a Cordless Drill 24V using category filters
+        And adds the Cordless Drill 24V to the cart
         And the user proceeds to checkout
         And the user completes the payment process
         Then the purchase is completed successfully
